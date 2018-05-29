@@ -12,8 +12,9 @@ import android.support.v4.content.ContextCompat
 import android.util.Log
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_home.*
-import pub.devrel.easypermissions.EasyPermissions;
+import pub.devrel.easypermissions.EasyPermissions
 
+import com.google.firebase.database.DatabaseReference
 
 
 import java.util.*
@@ -21,6 +22,10 @@ import android.graphics.BitmapFactory
 
 
 class HomeActivity : Activity() {
+
+
+
+
 
 
     var localDateNow = Calendar.getInstance().getTime()
@@ -46,8 +51,12 @@ class HomeActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("message")
 
-        getPermissions();
+        myRef.setValue("Sérgio Cruz")
+
+        getPermissions()
 
 
         imageWallet.setOnClickListener(){

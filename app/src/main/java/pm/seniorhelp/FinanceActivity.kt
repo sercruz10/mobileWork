@@ -76,7 +76,7 @@ class FinanceActivity  : Activity() {
             options.visibility = View.VISIBLE
 
             //TODO DO THIS WITH A LINK TO FIREBASE
-            val recipeList = FinanceRecipe.getRecipesFromFile("pms-mei-export.json", this, "despesas")
+            val recipeList = FinanceRecipe.getRecipesFromFile("pm-export.json", this, "despesas")
 
             val adapter = FinanceRecipeAdapter(this, recipeList)
             listview.adapter = adapter
