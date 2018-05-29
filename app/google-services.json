@@ -1,0 +1,142 @@
+{
+  "project_info": {
+    "project_number": "599861214271",
+    "firebase_url": "https://android-ea6a6.firebaseio.com",
+    "project_id": "android-ea6a6",
+    "storage_bucket": "android-ea6a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599861214271:android:bffe83b9e29cfe30",
+        "android_client_info": {
+          "package_name": "pm.seniorhelp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599861214271-v72d6kgru7ucug9iov37r0h08qis3kp5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pm.seniorhelp",
+            "certificate_hash": "6a74def4469dd34a9f011a49f3c635c407e6a5c6"
+          }
+        },
+        {
+          "client_id": "599861214271-pn6mhcthlhmo1ddb620b1ovvod3bmumg.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "599861214271-pn6mhcthlhmo1ddb620b1ovvod3bmumg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxC1TLEaaOeWQ8U4UFgWILbhRlILu5Nmk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599861214271-pn6mhcthlhmo1ddb620b1ovvod3bmumg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599861214271:android:543789496e45c99f",
+        "android_client_info": {
+          "package_name": "sercruz.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599861214271-pn6mhcthlhmo1ddb620b1ovvod3bmumg.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "599861214271-pn6mhcthlhmo1ddb620b1ovvod3bmumg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxC1TLEaaOeWQ8U4UFgWILbhRlILu5Nmk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599861214271:android:2016c8fc0b1bf286",
+        "android_client_info": {
+          "package_name": "sercruz.teste_2018"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599861214271-nfb5fef2akn7fvqdl046nt3fcqsv6ap4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sercruz.teste_2018",
+            "certificate_hash": "6a74def4469dd34a9f011a49f3c635c407e6a5c6"
+          }
+        },
+        {
+          "client_id": "599861214271-pn6mhcthlhmo1ddb620b1ovvod3bmumg.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "599861214271-pn6mhcthlhmo1ddb620b1ovvod3bmumg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxC1TLEaaOeWQ8U4UFgWILbhRlILu5Nmk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599861214271-pn6mhcthlhmo1ddb620b1ovvod3bmumg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
