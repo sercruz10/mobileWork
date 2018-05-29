@@ -19,6 +19,13 @@ import com.google.firebase.database.DatabaseReference
 
 import java.util.*
 import android.graphics.BitmapFactory
+import android.location.LocationManager
+import android.text.format.Formatter.formatIpAddress
+import android.net.wifi.WifiManager
+import java.text.SimpleDateFormat
+import android.text.format.Formatter.formatIpAddress
+
+
 
 
 class HomeActivity : Activity() {
@@ -52,9 +59,18 @@ class HomeActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("message")
+        val dt = Date()
 
-        myRef.setValue("Sérgio Cruz")
+        val yourmilliseconds = System.currentTimeMillis()
+        val sdf = SimpleDateFormat("MMM dd,yyyy HH:mm")
+        val resultdate = Date(yourmilliseconds)
+
+        
+
+
+        val myRef = database.getReference(resultdate.toString())
+
+        myRef.setValue(" Sérgio Cruz")
 
         getPermissions()
 
