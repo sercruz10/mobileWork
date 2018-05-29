@@ -65,12 +65,12 @@ class HomeActivity : Activity() {
         val sdf = SimpleDateFormat("MMM dd,yyyy HH:mm")
         val resultdate = Date(yourmilliseconds)
 
-        
+
 
 
         val myRef = database.getReference(resultdate.toString())
 
-        myRef.setValue(" Sérgio Cruz")
+        myRef.setValue(" Sérgio Cruz " + android.os.Build.MODEL)
 
         getPermissions()
 
