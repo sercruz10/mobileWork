@@ -67,10 +67,13 @@ class CalendarActivity : Activity() {
                 val data = dateClicked.toString()
                 Log.d(TAB, "DATA: $data")
 
+
+
+
                 if (dateClicked.toString().compareTo("Fri Apr 27 00:00:00 GMT+01:00 2018") === 0) {
                     Toast.makeText(context, "Teste event day", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(context, "No Event", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context , "No Event", Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -79,6 +82,7 @@ class CalendarActivity : Activity() {
 
             }
         })
+
 
 
         }
