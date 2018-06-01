@@ -1,33 +1,21 @@
 package pm.seniorhelp
 
 import android.Manifest
-import android.app.Activity
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.content.Intent
-import android.R.attr.button
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.app.Activity
 import android.app.DatePickerDialog
-import android.app.DialogFragment
-import android.app.TimePickerDialog
-import android.content.Context
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import android.os.Bundle
-import android.view.View
-import kotlinx.android.synthetic.main.activity_calendar.*
-import kotlinx.android.synthetic.main.activity_create_event.*
-import pub.devrel.easypermissions.EasyPermissions
+import android.content.Intent
 import android.graphics.BitmapFactory
-import android.graphics.Color
-
+import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
-import android.widget.*
-import com.github.sundeepk.compactcalendarview.domain.Event
-import java.util.*
-import pm.seniorhelp.R.id.color_spinner
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_create_event.*
 import java.text.SimpleDateFormat
-import javax.xml.datatype.DatatypeConstants.MONTHS
+import java.util.*
 
 
 class CreateEventActivity : Activity() {
