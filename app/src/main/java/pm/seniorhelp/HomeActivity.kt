@@ -30,11 +30,6 @@ import android.text.format.Formatter.formatIpAddress
 
 class HomeActivity : Activity() {
 
-
-
-
-
-
     var localDateNow = Calendar.getInstance().getTime()
     private val perms = arrayOf(
             ACCESS_FINE_LOCATION,
@@ -65,15 +60,10 @@ class HomeActivity : Activity() {
         val sdf = SimpleDateFormat("MMM dd,yyyy HH:mm")
         val resultdate = Date(yourmilliseconds)
 
-
-
-
         val myRef = database.getReference(resultdate.toString())
 
         myRef.setValue(" Sérgio Cruz " + android.os.Build.MODEL)
-
         getPermissions()
-
 
         imageWallet.setOnClickListener(){
             val intent = Intent(this, FinanceActivity::class.java)

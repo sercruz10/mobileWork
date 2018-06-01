@@ -17,61 +17,59 @@
         tools:layout_editor_absoluteY="225dp">
 
 
-
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/nameEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="Nome do Evento"
             android:inputType="textPersonName"
-             />
+            android:layout_marginBottom="10dp"/>/>
 
-        <EditText
-            android:id="@+id/editText2"
+        <Spinner
+            android:id="@+id/color_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="date" />
+            android:layout_marginBottom="10dp"
+            android:hint="Escolha cor para o evento"
+            android:padding="5dp"
+            tools:textAlignment="center" />
 
-        <EditText
-            android:id="@+id/editText3"
+        <Button
+            android:id="@+id/lblDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="time" />
+            android:text="Escolha Data Evento" />
 
-        <EditText
-            android:id="@+id/editText4"
-            android:layout_width="wrap_content"
+
+        <TimePicker
+            android:id="@+id/time_picker"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPostalAddress"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="331dp" />
-
-
+            android:timePickerMode="spinner" />
 
 
         <Button
             android:id="@+id/btnLoadImage"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:text="Escolha Imagem"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="215dp" />
+            tools:layout_editor_absoluteY="215dp"
+            android:layout_marginBottom="10dp"/>/>
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             />
+            android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/btnAddValue"
+            android:id="@+id/btnAddValueSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Value to Firebase" />
+            android:background="@color/orange"
+            android:textColor="@color/white"
+            android:text="Guardar" />
 
 
     </LinearLayout>

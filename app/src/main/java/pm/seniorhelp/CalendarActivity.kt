@@ -14,10 +14,13 @@ import kotlinx.android.synthetic.main.activity_calendar.*
 import java.text.SimpleDateFormat
 import java.util.*
 import com.github.sundeepk.compactcalendarview.domain.Event
-
-
-
-
+import android.R.attr.data
+import com.google.firebase.FirebaseError
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
 
 
 class CalendarActivity : Activity() {
@@ -25,7 +28,9 @@ class CalendarActivity : Activity() {
 
     private val dateFormat = SimpleDateFormat("MMMM- yyyy", Locale.getDefault())
 
+    val database = FirebaseDatabase.getInstance()
 
+    val myRef = database.getReference("/events")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +40,20 @@ class CalendarActivity : Activity() {
             startActivity(Intent(this, CreateEventActivity::class.java))
 
 
+
         }
+        var newString = "OLÁ"
+        val extras = intent.extras
+        if (extras == null) {
+            newString = ""
+        } else {
+          val newString = extras.getStringArray("ev")
+            //addEvent(newString[0],newString[1],newString[2].toLong())
+            myRef.push().setValue(System.currentTimeMillis().toString() +"="+ newString[0]+"="+newString[1]+"="+newString[2])
+        }
+
+        getGreeting()
+
 
 
         val ev1 = Event(Color.RED, 1527688591000L, "Teste event day")
@@ -64,6 +82,79 @@ class CalendarActivity : Activity() {
 
 
         }
+
+
+
+    fun addEvent(text:String, color:String, time:Long )
+    {
+
+        if(color.equals("Vermelho"))
+        {
+            val ev1 = Event(Color.RED, time, text)
+
+            compactcalendar_view.addEvent(ev1)
+        }
+        if(color.equals("Verde"))
+        {
+            val ev1 = Event(Color.GREEN, time, text)
+            compactcalendar_view.addEvent(ev1)
+        }
+        if(color.equals("Azul"))
+        {
+            val ev1 = Event(Color.BLUE, time, text)
+
+            compactcalendar_view.addEvent(ev1)
+        }
+        if(color.equals("Cinzento"))
+        {
+            val ev1 = Event(Color.GRAY, time, text)
+            compactcalendar_view.addEvent(ev1)
+        }
+        if(color.equals("Preto"))
+        {
+            val ev1 = Event(Color.BLACK, time, text)
+            compactcalendar_view.addEvent(ev1)
+        }
+
+
+    }
+
+    fun getGreeting(){
+        println("--------- start greeting ----------")
+        val gson = Gson()
+        myRef.addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+               //val objectList = gson.fromJson( snapshot.value.toString(), Array<String>::class.java).asList()
+                val separate1 = snapshot.value.toString().split(",".toRegex())
+
+                //var i = 0
+                var y = 0
+                for (item in separate1) {
+                    //println("TestBed: " + item)
+                    val separete2 = item.split("=".toRegex())
+
+
+                    for (i in 1 until separete2.size step 4 ) {
+                        var d= separete2[i+3].replace("}","");
+
+                       addEvent(separete2[i+1],separete2[i+2],d.toLong())
+                        //System.out.println(separete2[i]+"-"+separete2[i+1]+"-"+separete2[i+2])
+                    }
+
+
+
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
+
+
 }
 
 
