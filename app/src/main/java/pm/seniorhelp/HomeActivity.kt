@@ -10,65 +10,50 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_home.*
 import pub.devrel.easypermissions.EasyPermissions
 
-import com.google.firebase.database.DatabaseReference
-
 
 import java.util.*
-import android.graphics.BitmapFactory
-import android.location.LocationManager
-import android.text.format.Formatter.formatIpAddress
-import android.net.wifi.WifiManager
-import java.text.SimpleDateFormat
-import android.text.format.Formatter.formatIpAddress
-
-
+import com.google.firebase.database.*
 
 
 class HomeActivity : Activity() {
 
-    var localDateNow = Calendar.getInstance().getTime()
+    val database = FirebaseDatabase.getInstance()
+    var numbers : LinkedHashMap<String,String> = linkedMapOf();
+
+
+
     private val perms = arrayOf(
             ACCESS_FINE_LOCATION,
             WRITE_EXTERNAL_STORAGE,
             CALL_PHONE)
 
-    private fun getPermissions() {
-        if (!EasyPermissions.hasPermissions(this, ACCESS_FINE_LOCATION)) {
-            EasyPermissions.requestPermissions(this, "", 0,
-                    ACCESS_FINE_LOCATION)
-        }
-        if (!EasyPermissions.hasPermissions(this, WRITE_EXTERNAL_STORAGE)) {
-            EasyPermissions.requestPermissions(this, "", 0,
-                   WRITE_EXTERNAL_STORAGE)
-        }
-        if (!EasyPermissions.hasPermissions(this,CALL_PHONE)) {
-            EasyPermissions.requestPermissions(this, "", 0,
-                    CALL_PHONE)
-        }
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val database = FirebaseDatabase.getInstance()
-        val dt = Date()
-
-        val yourmilliseconds = System.currentTimeMillis()
-        val sdf = SimpleDateFormat("MMM dd,yyyy HH:mm")
-        val resultdate = Date(yourmilliseconds)
-
-        //val myRef = database.getReference(resultdate.toString())
-
-        //myRef.setValue(" Sérgio Cruz " + android.os.Build.MODEL)
+        
         getPermissions()
 
+        val myRef = database.getReference("/numbers/")
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                numbers.clear()
+                snapshot.children.forEach{item : DataSnapshot ->
+                    numbers.put(item.key.toString(), item.value.toString())
+                }
+                textPhone1.text =ArrayList<String>(numbers.keys).get(0)
+                textPhone2.text=ArrayList<String>(numbers.keys).get(1)
+                textPhone3.text=ArrayList<String>(numbers.keys).get(2)
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })        
+        
         imageWallet.setOnClickListener(){
             val intent = Intent(this, FinanceActivity::class.java)
             // To pass any data to next activity
-            intent.putExtra("DateTime", localDateNow)
+            //intent.putExtra("DateTime", localDateNow)
             startActivity(intent)
         }
         imageGear.setOnClickListener(){
@@ -87,15 +72,15 @@ class HomeActivity : Activity() {
         //TODO Connect a a text config maybe upload to firebase and download that information an put in uri parse
         call1.setOnClickListener(){
 
-            callSomeone("960233626")
+            callSomeone(ArrayList<String>(numbers.values).get(0))
         }
 
         call2.setOnClickListener(){
-            callSomeone("960233626")
+            callSomeone(ArrayList<String>(numbers.values).get(1))
         }
 
         call3.setOnClickListener(){
-            callSomeone("960233626")
+            callSomeone(ArrayList<String>(numbers.values).get(2))
         }
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -111,7 +96,23 @@ class HomeActivity : Activity() {
             }
         }
     }
-    fun callSomeone(telemovel: String) {
+   
+    private fun getPermissions() {
+        if (!EasyPermissions.hasPermissions(this, ACCESS_FINE_LOCATION)) {
+            EasyPermissions.requestPermissions(this, "", 0,
+                    ACCESS_FINE_LOCATION)
+        }
+        if (!EasyPermissions.hasPermissions(this, WRITE_EXTERNAL_STORAGE)) {
+            EasyPermissions.requestPermissions(this, "", 0,
+                    WRITE_EXTERNAL_STORAGE)
+        }
+        if (!EasyPermissions.hasPermissions(this,CALL_PHONE)) {
+            EasyPermissions.requestPermissions(this, "", 0,
+                    CALL_PHONE)
+        }
+    }
+
+    private fun callSomeone(telemovel: String) {
         val permissionCheck = ContextCompat.checkSelfPermission(this, CALL_PHONE)
 
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {

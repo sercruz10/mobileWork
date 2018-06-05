@@ -122,7 +122,7 @@ class CreateEventActivity : Activity() {
     }
 
     private fun getPermissions() {
-        if (!EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+    /*    if (!EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
             EasyPermissions.requestPermissions(this, "", 0,
                     Manifest.permission.READ_EXTERNAL_STORAGE)
         }
@@ -130,7 +130,7 @@ class CreateEventActivity : Activity() {
             EasyPermissions.requestPermissions(this, "", 0,
                     WRITE_EXTERNAL_STORAGE)
         }
-
+*/
     }
 
 

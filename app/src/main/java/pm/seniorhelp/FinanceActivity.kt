@@ -6,90 +6,166 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_finance.*
 import objects.FinanceElement
 import pm.adapters.FinanceRecipe
 import pm.adapters.FinanceRecipeAdapter
+import java.math.BigDecimal
 import java.util.*
+import com.google.firebase.FirebaseError
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.ValueEventListener
+
+
 
 
 class FinanceActivity  : Activity() {
+//TODO alterar os dados da barra, saldo etc
+    val dt = Date()
+    val database = FirebaseDatabase.getInstance()
+    var despesa = false
 
-    private val menu: MutableList<FinanceElement> = mutableListOf()
-    private val TAB = "Create Event"
+    var previousMonth = dt.getMonth() - 1
+    var currentMonth = dt.getMonth()
+    var nextMonth = dt.getMonth() +1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_finance)
         options.visibility = View.INVISIBLE
 
-        //val dateTime = this.intent.extras.get("DateTime") as Calendar.
-        val dt = Date()
-        val month = dt.getMonth() - 1
-        val currentMonth = dt.getMonth() +1
-        val mgreate = dt.getMonth() + 1
-        Log.d(TAB,"OKOK: "+mgreate.toString())
-        lesserMonth.text = month.toString()
-        actualMonth.text = currentMonth.toString()
-        greaterMonth.text = mgreate.toString()
+        calculaDados(0)
+        groupLesser.setOnClickListener {
+            calculaDados(-1)
+        }
 
-
-        val bounds = progressBar.getProgressDrawable().getBounds()
-        progressBar.progressTintList = ColorStateList.valueOf(Color.RED)
-        progressBar.getProgressDrawable().setBounds(bounds)
-        //10 % de saldo Matematica
-        progressBar.setProgress(10)
-
-        //Write on database
-        /*
-        myRef.setValue("Hello, World!")
-
-
-        // Read from the database
-        myRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                val value = dataSnapshot.getValue(String::class.java)
-                Log.d("TESTE", "Value is: " + value!!)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-                Log.w("TESTE", "Failed to read value.", error.toException())
-            }
-        })
-        */
-
+        groupGreater.setOnClickListener {
+            calculaDados(+1)
+        }
 
         addRendimento.setOnClickListener() {
             options.visibility = View.VISIBLE
+            despesa =false
+            val myRef = database.getReference("/config/finance/rendimentos/")
+            myRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
 
-            //TODO DO THIS WITH A LINK TO FIREBASE
-            val recipeList = FinanceRecipe.getRecipesFromFile("pms-mei-export.json", this, "rendimentos")
+                    //Log.d("JSon object",snapshot.value.toString());
 
-            val adapter = FinanceRecipeAdapter(this, recipeList)
-            listview.adapter = adapter
+                    var recipeList = ArrayList<FinanceRecipe>()
+                    for (postSnapshot in snapshot.children)
+                    {
+
+                        var aux = FinanceRecipe(postSnapshot.key, postSnapshot.getValue<String>(String::class.java)!!)
+                        recipeList.add(aux)
+                    }
+
+                    val adapter = FinanceRecipeAdapter(this@FinanceActivity, recipeList)
+                    listview.adapter = adapter
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            })
         }
 
         addDespesa.setOnClickListener() {
             options.visibility = View.VISIBLE
+            despesa = true
 
-            //TODO DO THIS WITH A LINK TO FIREBASE
-            val recipeList = FinanceRecipe.getRecipesFromFile("pms-mei-export.json", this, "despesas")
+            val myRef = database.getReference("/config/finance/despesas/")
+            myRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
 
-            val adapter = FinanceRecipeAdapter(this, recipeList)
-            listview.adapter = adapter
+                    var recipeList = ArrayList<FinanceRecipe>()
+                    for (postSnapshot in snapshot.children)
+                    {
 
+                        var aux = FinanceRecipe(postSnapshot.key, postSnapshot.getValue<String>(String::class.java)!!)
+                        recipeList.add(aux)
+                    }
+
+                    val adapter = FinanceRecipeAdapter(this@FinanceActivity, recipeList)
+                    listview.adapter = adapter
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            })
         }
+
+
 
         listview.setOnItemClickListener { parent, view, position, id ->
 
+            if (despesa) {
+
+                //val myRef = database.getReference("/app/finance/despesas/" + dt.year + "/" + dt.month+"/value")
+                //myRef.setValue(value.text.toString().replace("€ ","").toDouble())
+                val myRef = database.getReference("/app/finance/despesas/" + dt.year + "/" + dt.month+"/")
+                myRef.push().setValue(value.text.toString().replace("€ ","").toDouble())
+
+                myRef.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        var despesa:Double = 0.0
+                        snapshot.children.forEach { item : DataSnapshot ->
+                            despesa.plus(item.value.toString().toDouble())
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {}
+                })
+
+            }
+            else {
+                val myRef = database.getReference("/app/finance/rendimentos/" + dt.year + "/" + dt.month+"/")
+                myRef.push().setValue(value.text.toString().replace("€ ","").toDouble())
+
+                myRef.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        var rendimento:Double = 0.0
+                        snapshot.children.forEach { item : DataSnapshot ->
+                            rendimento.plus(item.value.toString().toDouble())
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {}
+                })
+
+            }
+
             options.visibility = View.INVISIBLE
-            //TODO link to database and insert values and update all structure of the page
         }
 
 
+    }
+
+    fun calculaDados(valor : Int)
+    {
+
+        if (valor>0) {
+            //TODO passar para extenso
+            previousMonth = currentMonth
+            currentMonth = nextMonth
+            nextMonth = nextMonth + 1;
+        }
+
+        else if(valor< 0)
+        {
+            currentMonth = previousMonth
+            previousMonth = previousMonth - 1
+            nextMonth = currentMonth;
+
+        }
+        lesserMonth.text = (previousMonth).toString()
+        actualMonth.text = currentMonth.toString()
+        greaterMonth.text = (nextMonth).toString()
+
+        //ver se não precisa de estar no metodo principal
+        val bounds = progressBar.getProgressDrawable().getBounds()
+        progressBar.progressTintList = ColorStateList.valueOf(Color.GREEN)
+        progressBar.getProgressDrawable().setBounds(bounds)
+
+        //10 % de saldo Matematica
+        progressBar.setProgress(80)
     }
 
 

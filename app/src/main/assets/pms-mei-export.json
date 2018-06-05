@@ -1,92 +1,55 @@
 {
-  "config" : {
-    "finance" : {
-      "despesas" : {
-        "Casa" : "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/935657c9-7e06-48b6-9971-e24826d44de0_preview.png",
-        "Comida" : "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/13ac3915-41b7-4f74-a021-954e2439efec_preview.png",
-        "Geral" : "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/4fa7f072-efef-4e62-8cec-21be8c486ad6_preview.png",
-        "Saúde" : "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/456427da-9d53-48fb-a9d6-6cfa06ec8480_preview.png"
+  "config": {
+    "finance": {
+      "despesas": {
+        "Casa": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/935657c9-7e06-48b6-9971-e24826d44de0_preview.png",
+        "Comida": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/13ac3915-41b7-4f74-a021-954e2439efec_preview.png",
+        "Geral": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/4fa7f072-efef-4e62-8cec-21be8c486ad6_preview.png",
+        "Saúde": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/456427da-9d53-48fb-a9d6-6cfa06ec8480_preview.png"
       },
-      "rendimentos" : {
-        "Depósito" : "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/698d246e-518c-42a1-8d32-be3e7a9e911e_preview.png",
-        "Salário" : "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/b2940fd0-2537-48de-977f-29dca740b9b7_preview.png"
+      "rendimentos": {
+        "Depósito": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/698d246e-518c-42a1-8d32-be3e7a9e911e_preview.png",
+        "Salário": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/b2940fd0-2537-48de-977f-29dca740b9b7_preview.png"
       }
     }
   },
-  "app" : {
+  "app": {
     "finance": {
       "despesas": {
-        "Casa": {
-          "2018":
-          {
-            "01" : {
-              "value" : 300
-            },
-            "02" : {
-              "value" : 300
-            }
-          }
-        },
-        "Comida": {
-          "2018":
-          {
-            "01" : {
-              "value" : 300
-            },
-            "02" : {
-              "value" : 300
-            }
-          }
-        },
-        "Geral": {
-          "2018":
-          {
-            "01" : {
-              "value" : 300
-            },
-            "02" : {
-              "value" : 300
-            }
-          }
-        },
-        "Saúde": {
-          "2018":
-          {
-            "01" : {
-              "value" : 300
-            },
-            "02" : {
-              "value" : 300
-            }
-          }
-        }
-      },
-      "rendimentos": {
-        "2018":
-        {
-          "01" : {
-            "value" : 300
+        "2018": {
+          "01": {
+            "value": 300
           },
-          "02" : {
-            "value" : 300
+          "02": {
+            "value": 300
           }
         }
       }
     },
-    "health": {
-      "passos": {
-        "aaaa": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/4fa7f072-efef-4e62-8cec-21be8c486ad6_preview.png",
-        "bbbb": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/456427da-9d53-48fb-a9d6-6cfa06ec8480_preview.png"
-      },
-      "bps": {
-        "aaaa": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/698d246e-518c-42a1-8d32-be3e7a9e911e_preview.png",
-        "bbbb": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/b2940fd0-2537-48de-977f-29dca740b9b7_preview.png"
+    "rendimentos": {
+      "2018": {
+        "01": {
+          "value": 300
+        },
+        "02": {
+          "value": 300
+        }
       }
-    },
-    "numbers": {
-      "Prima": "960233626",
-      "Amiga": "960233626",
-      "Namorada": "960233626"
     }
+  },
+  "health": {
+    "passos": {
+      "aaaa": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/4fa7f072-efef-4e62-8cec-21be8c486ad6_preview.png",
+      "bbbb": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/456427da-9d53-48fb-a9d6-6cfa06ec8480_preview.png"
+    },
+    "bps": {
+      "aaaa": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/698d246e-518c-42a1-8d32-be3e7a9e911e_preview.png",
+      "bbbb": "https://ninjastorage.blob.core.windows.net/companyfiles/41652564/b2940fd0-2537-48de-977f-29dca740b9b7_preview.png"
+    }
+  },
+  "numbers": {
+    "Prima": "960233626",
+    "Amiga": "960233626",
+    "Namorada": "960233626"
   }
 }

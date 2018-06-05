@@ -1,6 +1,7 @@
 package pm.adapters
 
 import android.content.Context
+import com.google.firebase.database.FirebaseDatabase
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -10,6 +11,7 @@ import org.json.JSONObject
 class FinanceRecipe(
         val title: String,
         val imageUrl: String) {
+
 
     companion object {
 
@@ -32,6 +34,7 @@ class FinanceRecipe(
 
             return recipeList
         }
+
 
         private fun loadJsonFromAsset(filename: String, context: Context): String? {
             var json: String?

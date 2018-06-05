@@ -323,10 +323,10 @@
                 android:visibility="visible">
 
                 <EditText
-                    android:id="@+id/phone"
+                    android:id="@+id/value"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone"
+                    android:inputType="numberDecimal"
                     android:text="€ 0"/>
 
                 <ListView
