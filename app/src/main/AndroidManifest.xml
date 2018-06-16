@@ -16,6 +16,10 @@
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
     <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
     <uses-permission android:name='android.permission.WAKE_LOCK'/>
+
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission
         android:name="android.permission.USE_FINGERPRINT"
         tools:node="remove"/>
@@ -43,12 +47,20 @@
         <activity
             android:name="HealthActivity"
             android:label="@string/title_activity_health" />
+
+        <activity
+            android:name=".health.DeviceScans"
+            android:label="DeviceScans"/>
+
+        <activity
+            android:name=".health.MainDeviceScan"
+            android:label="MainDeviceScan"/>
         <activity
             android:name="CalendarActivity"
             android:label="@string/title_activity_calendar"/>
         <activity
             android:name="CreateEventActivity"
-            android:label="@string/title_create_event"></activity>
+            android:label="@string/title_create_event"/>
 
     </application>
 

@@ -4,21 +4,15 @@ import android.app.Activity
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_finance.*
-import objects.FinanceElement
 import pm.adapters.FinanceRecipe
 import pm.adapters.FinanceRecipeAdapter
-import java.math.BigDecimal
 import java.util.*
-import com.google.firebase.FirebaseError
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ValueEventListener
-
-
 
 
 class FinanceActivity  : Activity() {
@@ -33,6 +27,9 @@ class FinanceActivity  : Activity() {
 
     var rendimento:Double = 0.0
     var despesa:Double = 0.0
+
+    var monthName = arrayOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -206,15 +203,15 @@ class FinanceActivity  : Activity() {
         if (previousMonth.equals(0))
             lesserMonth.text = ("").toString()
         else
-            lesserMonth.text = (previousMonth).toString()
+            lesserMonth.text = ( monthName[previousMonth-1]).toString()
 
-        actualMonth.text = currentMonth.toString()
-
-
-        if (greaterMonth.equals(13))
+        if (nextMonth.equals(13))
             greaterMonth.text = ("").toString()
         else
-            greaterMonth.text = (nextMonth).toString()
+            greaterMonth.text = (monthName[nextMonth-1]).toString()
+
+
+        actualMonth.text =  monthName[currentMonth-1].toString()
 
         //ver se não precisa de estar no metodo principal
         val bounds = progressBar.getProgressDrawable().getBounds()
