@@ -43,7 +43,7 @@
             android:label="@string/title_activity_finance" />
         <activity
             android:name="SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settingss" />
         <activity
             android:name="HealthActivity"
             android:label="@string/title_activity_health" />
