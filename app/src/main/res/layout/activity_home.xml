@@ -21,10 +21,22 @@
             android:src="@drawable/gear"
             android:layout_width="0dp" />
 
-        <ImageView
-            android:layout_weight="1"
+        <TextView
+            android:id="@+id/lblPersonalInfo"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_width="0dp" />
+            android:typeface="serif"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:background="@android:color/background_light" />
+
+        <ImageView
+            android:id="@+id/imageMapa"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:contentDescription="imageMapa"
+            android:src="@drawable/mapa" />
     </LinearLayout>
 
     <LinearLayout

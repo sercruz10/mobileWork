@@ -76,15 +76,14 @@
     <string name="title_activity_calendar">CalendarActivity</string>
 
 
+    <string-array name="colors_array">
+        <item>Vermelho</item>
+        <item>Verde</item>
+        <item>Azul</item>
+        <item>Cinzento</item>
+        <item>Preto</item>
 
-        <string-array name="colors_array">
-            <item>Vermelho</item>
-            <item>Verde</item>
-            <item>Azul</item>
-            <item>Cinzento</item>
-            <item>Preto</item>
-
-        </string-array>
+    </string-array>
 
     <string name="ble_not_supported">BLE is not supported</string>
     <string name="label_data">Data:</string>

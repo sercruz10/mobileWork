@@ -1,30 +1,21 @@
 package pm.seniorhelp
 
-import android.app.ActionBar
 import android.app.Activity
-import android.app.usage.UsageEvents
-import android.widget.Toast
-import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.provider.CalendarContract
 import android.util.Log
+import android.widget.Toast
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_calendar.*
 import java.text.SimpleDateFormat
 import java.util.*
-import com.github.sundeepk.compactcalendarview.domain.Event
-import android.R.attr.data
-import com.google.firebase.FirebaseError
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.gson.Gson
 
 
 class CalendarActivity : Activity() {
     private val TAB = "CalendarActivity"
+
+
 
     private val dateFormat = SimpleDateFormat("MMMM- yyyy", Locale.getDefault())
 
@@ -66,15 +57,25 @@ class CalendarActivity : Activity() {
 
                 val data = dateClicked.toString()
                 Log.d(TAB, "DATA: $data")
+                System.out.println("1- "+dateClicked.toString())
+                System.out.println("2- "+dateClicked)
 
+                val events = compactcalendar_view.getEvents(dateClicked)
 
-
-
-                if (dateClicked.toString().compareTo("Fri Apr 27 00:00:00 GMT+01:00 2018") === 0) {
-                    Toast.makeText(context, "Teste event day", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(context , "No Event", Toast.LENGTH_LONG).show()
+                if(!events.isEmpty())
+                {
+                for (i in events )
+                {
+                    Toast.makeText(context,i.data.toString(), Toast.LENGTH_LONG).show()
                 }
+                }
+                else
+                {
+                    Toast.makeText(context, "No Event", Toast.LENGTH_LONG).show()
+                }
+
+
+
             }
 
             override fun onMonthScroll(firstDayOfNewMonth: Date) {

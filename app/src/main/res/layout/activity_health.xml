@@ -6,4 +6,44 @@
     android:layout_height="match_parent"
     tools:context="HealthActivity">
 
+
+    <EditText
+        android:id="@+id/nameSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Personal Info"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="92dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="0dp"
+        android:src="@drawable/gear"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <ImageView
+        android:id="@+id/imageSettinhs"
+        android:layout_width="85dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="149dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/gear"
+        app:layout_constraintBottom_toTopOf="@+id/nameSettings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+
+
+
 </android.support.constraint.ConstraintLayout>
