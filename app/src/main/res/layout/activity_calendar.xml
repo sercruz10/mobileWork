@@ -12,7 +12,8 @@
         android:gravity="center_vertical|center_horizontal|center"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints">
 
         <com.github.sundeepk.compactcalendarview.CompactCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/compactcalendar_view"

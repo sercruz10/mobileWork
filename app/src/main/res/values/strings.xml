@@ -500,6 +500,60 @@
     <string name="interval_ten_minutes">every 10 minutes</string>
     <string name="interval_thirty_minutes">every 30 minutes</string>
     <string name="interval_one_hour">once an hour</string>
+    <string name="reset_index">Reset fetch date</string>
+    <string name="select_all">Select all</string>
+    <string name="share">Share</string>
+    <string name="controlcenter_start_activity_tracks">Your activity tracks</string>
+
+    <string name="devicetype_unknown">Unknown Device</string>
+    <string name="devicetype_test">Test Device</string>
+    <string name="devicetype_pebble">Pebble</string>
+    <string name="devicetype_miband">Mi Band</string>
+    <string name="devicetype_miband2">Mi Band 2</string>
+    <string name="devicetype_amazfit_bip">Amazfit Bip</string>
+    <string name="devicetype_amazfit_cor">Amazfit Cor</string>
+    <string name="devicetype_vibratissimo">Vibratissimo</string>
+    <string name="devicetype_liveview">LiveView</string>
+    <string name="devicetype_hplus">HPlus</string>
+    <string name="devicetype_makibes_f68">Makibes F68</string>
+    <string name="devicetype_exrizu_k8">Exrizu K8</string>
+    <string name="devicetype_q8">Q8</string>
+    <string name="devicetype_no1_f1">No.1 F1</string>
+    <string name="devicetype_teclast_h30">Teclast H30</string>
+    <string name="devicetype_xwatch">XWatch</string>
+    <string name="dbmanagementactivity_error_exporting_shared">"Error exporting preference: %1$s"</string>
+     <string name="dbmanagementactivity_error_importing_shared">"Error importing preference: %1$s"</string>
+
+      <string name="discovery_bonding_failed_immediately">Bonding with %1$s failed immediately.</string>
+    <string name="discovery_trying_to_connect_to">Trying to connect to: %1$s</string>
+    <string name="discovery_successfully_bonded">Bound to %1$s.</string>
+    <string name="choose_auto_export_location">Choose export location</string>
+    <string name="kind_firmware">Firmware</string>
+    <string name="kind_invalid">Invalid data</string>
+    <string name="kind_font">Font</string>
+    <string name="kind_gps">GPS Firmware</string>
+    <string name="kind_gps_almanac">GPS Almanac</string>
+    <string name="kind_gps_cep">GPS Error Correction</string>
+    <string name="kind_resources">Resources</string>
+    <string name="kind_watchface">Watchface</string>
+    <string name="discovery_pair_question">Select Pair to pair your devices. If this fails, try again without pairing.</string>
+    <string name="activity_type_not_measured">Not measured</string>
+    <string name="activity_type_activity">Activity</string>
+    <string name="activity_type_light_sleep">Light sleep</string>
+    <string name="activity_type_deep_sleep">Deep sleep</string>
+    <string name="activity_type_not_worn">Device not worn</string>
+    <string name="activity_type_running">Running</string>
+    <string name="activity_type_walking">Walking</string>
+    <string name="activity_type_swimming">Swimming</string>
+    <string name="activity_type_unknown">Unknown activity</string>
+    <string name="activity_summaries">Activities</string>
+    <string name="activity_type_biking">Biking</string>
+    <string name="activity_type_treadmill">Treadmill</string>
+    <string name="_pebble_watch_open_on_phone">Open on phone</string>
+    <string name="_pebble_watch_mute">Mute</string>
+    <string name="_pebble_watch_reply">Reply</string>
+
+
 
     <string name="fw_upgrade_notice_amazfitbip">Está prestes a instalar o firmware %s na sua Amazfit Bip.
 \n

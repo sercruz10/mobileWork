@@ -10,32 +10,27 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_home.*
-import okhttp3.*
-import pub.devrel.easypermissions.EasyPermissions
-import android.support.v7.app.AppCompatActivity
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-
-
-private const val APP_ID = "22bf8738d265b443463933882f83cfbd"
-var contador = 0
-
+import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_home.*
+import nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2
+import okhttp3.*
+import pub.devrel.easypermissions.EasyPermissions
+import java.io.IOException
+import java.util.*
 
 
 class HomeActivity : Activity() {
-
+    private val APP_ID = "22bf8738d265b443463933882f83cfbd"
+    var contador = 0
 
     var numbers : LinkedHashMap<String,String> = linkedMapOf()
     var coorLat = 9.99
@@ -59,7 +54,7 @@ class HomeActivity : Activity() {
         }
         if (!EasyPermissions.hasPermissions(this, WRITE_EXTERNAL_STORAGE)) {
             EasyPermissions.requestPermissions(this, "", 0,
-                   WRITE_EXTERNAL_STORAGE)
+                    WRITE_EXTERNAL_STORAGE)
         }
         if (!EasyPermissions.hasPermissions(this,CALL_PHONE)) {
             EasyPermissions.requestPermissions(this, "", 0,
@@ -73,14 +68,6 @@ class HomeActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
-        val dt = Date()
-
-
-        val yourmilliseconds = System.currentTimeMillis()
-        val sdf = SimpleDateFormat("MMM dd,yyyy HH:mm")
-        val resultdate = Date(yourmilliseconds)
-
 
         getPermissions()
 
@@ -99,7 +86,7 @@ class HomeActivity : Activity() {
         }
 
         imageHealth.setOnClickListener(){
-            startActivity(Intent(this, HealthActivity::class.java))
+            startActivity(Intent(this, ControlCenterv2::class.java))
         }
         imageMapa.setOnClickListener(){
 
@@ -109,12 +96,6 @@ class HomeActivity : Activity() {
             if (mapIntent.resolveActivity(getPackageManager()) != null) {
                 startActivity(mapIntent)
             }
-
-            /*val otherStrings = arrayOf(, )
-            val intent = Intent(this, Map::class.java)
-            intent.putExtra("ev", otherStrings)
-            setResult(RESULT_OK, intent)
-            startActivity(intent)*/
         }
 
         getGreetingNumber("/number1",call1,textPhone1)
@@ -193,11 +174,11 @@ class HomeActivity : Activity() {
 
     fun temp() {
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
-            try {
-                locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
-            } catch(ex: SecurityException) {
-                Log.d("myTag", "Security Exception, no location available")
-            }
+        try {
+            locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
+        } catch(ex: SecurityException) {
+            Log.d("myTag", "Security Exception, no location available")
+        }
     }
 
     private val locationListener: LocationListener = object : LocationListener {
@@ -244,14 +225,7 @@ class HomeActivity : Activity() {
                 val te = response.body()?.string().toString()
 
                 val split = te.split(":".toRegex())
-                /*
-                System.out.println("/n")
-                for (i in 1 until split.size step 1 ) {
 
-                    System.out.println("isto é "+i+"-"+split[i])
-                    //addEvent(separete2[i+1],separete2[i+2],d.toLong())
-                    //System.out.println(separete2[i]+"-"+separete2[i+1]+"-"+separete2[i+2])
-                }*/
 
                 var temp = split[11].replace(",\"pressure\"","")
                 var country = split[27].replace("\",\"sunrise\"","")
@@ -276,18 +250,16 @@ class HomeActivity : Activity() {
                 while(!flag)
                 {
 
-                try {
-                    lblPersonalInfo.setText(tempTxt.toString()+" "+city+" "+country+" "+formatTempo+" Cº"+" "+clouds)
-                    imageIcon.setImageResource(id)
-                    flag = true
-                }
-                catch (ex: Exception )
-                {
+                    try {
+                        lblPersonalInfo.setText(tempTxt.toString()+" "+city+" "+country+" "+formatTempo+" Cº"+" "+clouds)
+                        imageIcon.setImageResource(id)
+                        flag = true
+                    }
+                    catch (ex: Exception )
+                    {
 
+                    }
                 }
-                }
-
-                //System.out.println(city+" "+country+" "+tempo)
 
             }
         })
