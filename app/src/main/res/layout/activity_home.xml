@@ -25,10 +25,18 @@
             android:id="@+id/lblPersonalInfo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:typeface="serif"
-            android:textSize="15sp"
             android:layout_weight="1"
-            android:background="@android:color/background_light" />
+            android:background="@android:color/background_light"
+            android:textSize="15sp"
+            android:typeface="serif"
+            android:textColor="@color/blue"/>
+
+        <ImageView
+            android:id="@+id/imageIcon"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:contentDescription="imageTempo" />
 
         <ImageView
             android:id="@+id/imageMapa"

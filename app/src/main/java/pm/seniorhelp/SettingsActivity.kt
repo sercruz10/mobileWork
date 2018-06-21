@@ -8,6 +8,11 @@ import android.widget.Button
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
+import com.google.firebase.FirebaseError
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class SettingsActivity : Activity() {
 

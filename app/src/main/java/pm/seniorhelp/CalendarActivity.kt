@@ -1,16 +1,26 @@
 package pm.seniorhelp
 
+import android.app.ActionBar
 import android.app.Activity
+import android.app.usage.UsageEvents
+import android.widget.Toast
+import com.github.sundeepk.compactcalendarview.CompactCalendarView
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.provider.CalendarContract
 import android.util.Log
-import android.widget.Toast
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_calendar.*
 import java.text.SimpleDateFormat
 import java.util.*
-
+import com.github.sundeepk.compactcalendarview.domain.Event
+import android.R.attr.data
+import com.google.firebase.FirebaseError
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
 
 class CalendarActivity : Activity() {
     private val TAB = "CalendarActivity"

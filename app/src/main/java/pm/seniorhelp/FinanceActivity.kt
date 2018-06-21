@@ -15,6 +15,7 @@ import pm.adapters.FinanceRecipeAdapter
 import java.util.*
 
 
+
 class FinanceActivity  : Activity() {
 //TODO alterar os dados da barra, saldo etc
     val dt = Date()

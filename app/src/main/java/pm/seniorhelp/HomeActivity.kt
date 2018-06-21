@@ -17,21 +17,29 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_home.*
 import okhttp3.*
 import pub.devrel.easypermissions.EasyPermissions
+import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 private const val APP_ID = "22bf8738d265b443463933882f83cfbd"
 var contador = 0
 
 
+
 class HomeActivity : Activity() {
 
 
-    var numbers : LinkedHashMap<String,String> = linkedMapOf();
-
-
+    var numbers : LinkedHashMap<String,String> = linkedMapOf()
+    var coorLat = 9.99
+    var coordLong = 9.99
 
     var localDateNow = Calendar.getInstance().getTime()
     val database = FirebaseDatabase.getInstance()
@@ -93,12 +101,27 @@ class HomeActivity : Activity() {
         imageHealth.setOnClickListener(){
             startActivity(Intent(this, HealthActivity::class.java))
         }
+        imageMapa.setOnClickListener(){
+
+            val gmmIntentUri = Uri.parse("geo:"+coorLat.toString()+","+coordLong.toString())
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps");
+            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mapIntent)
+            }
+
+            /*val otherStrings = arrayOf(, )
+            val intent = Intent(this, Map::class.java)
+            intent.putExtra("ev", otherStrings)
+            setResult(RESULT_OK, intent)
+            startActivity(intent)*/
+        }
 
         getGreetingNumber("/number1",call1,textPhone1)
         getGreetingNumber("/number2",call2,textPhone2)
         getGreetingNumber("/number3",call3,textPhone3)
-
-
+        personalInfo()
+        temp()
 
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -131,21 +154,14 @@ class HomeActivity : Activity() {
         val myRefNumber1 = database.getReference(str)
         val gson = Gson()
         myRefNumber1.addValueEventListener(object : ValueEventListener {
-
             override fun onDataChange(snapshot: DataSnapshot) {
-
-
                 val separate1 = snapshot.value.toString().split(",".toRegex())
-
-
                 var y = 0
                 for (item in separate1) {
                     //println("TestBed: " + item)
                     val separete2 = item.split("=".toRegex())
                     txt.text = separete2[1]
                     btn.setOnClickListener(){
-
-
                         callSomeone(separete2[2])
                     }
                 }
@@ -158,19 +174,13 @@ class HomeActivity : Activity() {
         val myRefNumber1 = database.getReference("/personalInfo")
 
         myRefNumber1.addValueEventListener(object : ValueEventListener {
-
             override fun onDataChange(snapshot: DataSnapshot) {
-
-
                 val separate1 = snapshot.value.toString().split(",".toRegex())
-
-
                 var y = 0
                 for (item in separate1) {
                     //println("TestBed: " + item)
                     val separete2 = item.split("=".toRegex())
-                    lblPersonalInfo.text = "Welcome"+","+ separete2[1]+" of "+separete2[4]+"\n"+separete2[3]
-
+                    lblPersonalInfo.text = "  Welcome"+", "+ separete2[1]
 
                 }
             }
@@ -182,22 +192,19 @@ class HomeActivity : Activity() {
 
 
     fun temp() {
-
         locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
-
             try {
-
                 locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
             } catch(ex: SecurityException) {
                 Log.d("myTag", "Security Exception, no location available")
             }
-
-
-
     }
 
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
+
+            coorLat = location.latitude.toDouble()
+            coordLong = location.longitude.toDouble()
 
             val URL = "http://api.openweathermap.org/data/2.5/weather?lat="+location.latitude+"&lon="+location.longitude
             val COMPLETE_URL = "$URL&APPID=$APP_ID"
@@ -237,8 +244,9 @@ class HomeActivity : Activity() {
                 val te = response.body()?.string().toString()
 
                 val split = te.split(":".toRegex())
+                /*
                 System.out.println("/n")
-                /*for (i in 1 until split.size step 1 ) {
+                for (i in 1 until split.size step 1 ) {
 
                     System.out.println("isto é "+i+"-"+split[i])
                     //addEvent(separete2[i+1],separete2[i+2],d.toLong())
@@ -250,6 +258,15 @@ class HomeActivity : Activity() {
                 country = country.replace("\"","")
                 var city = split[31].replace("\",\"cod\"","")
                 city = city.replace("\"","")
+                var clouds = split[7].replace("\",\"icon\"","")
+                clouds = clouds.replace("\"","")
+                var icon = split[8].replace("\"}],\"base\"","")
+                icon = icon.replace("\"","")
+                icon = "a"+icon
+
+
+
+                val id = resources.getIdentifier(icon, "drawable", getPackageName())
 
                 val tempo = temp.toDouble() - 273.15
                 val formatTempo = "%.2f".format(tempo)
@@ -260,7 +277,8 @@ class HomeActivity : Activity() {
                 {
 
                 try {
-                    lblPersonalInfo.setText(tempTxt.toString()+ ", you are in " +city+" "+country+" "+formatTempo+" Cº")
+                    lblPersonalInfo.setText(tempTxt.toString()+" "+city+" "+country+" "+formatTempo+" Cº"+" "+clouds)
+                    imageIcon.setImageResource(id)
                     flag = true
                 }
                 catch (ex: Exception )
@@ -269,7 +287,7 @@ class HomeActivity : Activity() {
                 }
                 }
 
-                System.out.println(city+" "+country+" "+tempo)
+                //System.out.println(city+" "+country+" "+tempo)
 
             }
         })

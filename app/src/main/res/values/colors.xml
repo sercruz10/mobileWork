@@ -6,6 +6,7 @@
     <color name="orange">#FFA500</color>
     <color name="white">#ffffff</color>
     <color name="btn_dark">#dd2c00</color>
+    <color name="blue">#0000FF</color>
 
     <color name="primary_light" type="color">#ff3d00</color>
     <color name="primarydark_light" type="color">#dd2c00</color>

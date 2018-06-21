@@ -105,8 +105,6 @@
     <string name="menu_stop">Stop</string>
 
 
-
-
     <string name="title_activity_controlcenter">Gadgetbridge</string>
     <string name="action_settings">Configurações</string>
     <string name="action_debug">Depurar</string>
@@ -560,6 +558,8 @@
     <string name="mi2_prefs_button_action">Ativar botão</string>
     <string name="mi2_prefs_button_action_vibrate">Ativar vibração</string>
     <string name="notification_channel_name">Notificações - Gadgetbridge</string>
+    <string name="title_activity_map">Map</string>
+    <string name="google_android_map_api_key">AIzaSyAW3F_mbrDgRgdnMc-biicrIgYL-zoc0cs</string>
 
 
 </resources>
