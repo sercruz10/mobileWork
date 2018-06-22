@@ -4,8 +4,10 @@ import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
@@ -15,6 +17,21 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_create_event.*
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
+import com.google.firebase.storage.OnProgressListener
+
+import android.support.annotation.NonNull
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import java.util.UUID.randomUUID
+
+
+
+
+
+
 
 
 class CreateEventActivity : Activity() {
@@ -24,6 +41,12 @@ class CreateEventActivity : Activity() {
     private val RESULT_LOAD_IMAGE = 1
     private val TAB = "Create Event"
 
+    val storage = FirebaseStorage.getInstance()
+    val storageReference = storage.getReference()
+    var imageName = "ok"
+
+
+
     private val galleryPermissions = arrayOf(
             READ_EXTERNAL_STORAGE,
             WRITE_EXTERNAL_STORAGE)
@@ -32,6 +55,9 @@ class CreateEventActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_event)
+
+
+
         val spinner = color_spinner
 
         val adapter = ArrayAdapter.createFromResource(this,
@@ -66,31 +92,14 @@ class CreateEventActivity : Activity() {
             val timeMills = formatter.parse(dataEvent.toString()+", "+time)
             val oldMillis = timeMills.time
             val img = imageView.drawable
-            val otherStrings = arrayOf(name.toString(), color.toString(), oldMillis.toString())
-
-
-
-
-
-
-
+            val otherStrings = arrayOf(name.toString(), color.toString(), oldMillis.toString(),imageName.toString())
 
             val intent = Intent(baseContext, CalendarActivity::class.java)
             intent.putExtra("ev", otherStrings)
             setResult(RESULT_OK, intent)
             startActivity(intent)
 
-
-
-
-
         }
-
-
-
-
-
-
 
     }
 
@@ -109,7 +118,28 @@ class CreateEventActivity : Activity() {
             cursor.close()
 
             imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath))
+            if (picturePath != null) {
+                val progressDialog = ProgressDialog(this)
+                progressDialog.setTitle("Uploading...")
+                progressDialog.show()
 
+                imageName = UUID.randomUUID().toString()
+                val ref = storageReference.child("images/" +imageName )
+                ref.putFile(selectImg)
+                        .addOnSuccessListener {
+                            progressDialog.dismiss()
+                            Toast.makeText(this, "Uploaded", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            progressDialog.dismiss()
+                            Toast.makeText(this, "Failed " + e.message, Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnProgressListener { taskSnapshot ->
+                            val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot
+                                    .totalByteCount
+                            progressDialog.setMessage("Uploaded " + progress.toInt() + "%")
+                        }
+            }
 
         } else {
 

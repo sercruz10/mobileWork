@@ -32,6 +32,7 @@
             android:layout_marginBottom="10dp"
             android:hint="Escolha cor para o evento"
             android:padding="5dp"
+
             tools:textAlignment="center" />
 
         <Button
@@ -60,7 +61,7 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="100dp" />
 
         <Button
             android:id="@+id/btnAddValueSave"

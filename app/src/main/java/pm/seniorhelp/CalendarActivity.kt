@@ -50,12 +50,9 @@ class CalendarActivity : Activity() {
         } else {
           val newString = extras.getStringArray("ev")
             //addEvent(newString[0],newString[1],newString[2].toLong())
-            myRef.push().setValue(System.currentTimeMillis().toString() +"="+ newString[0]+"="+newString[1]+"="+newString[2])
+            myRef.push().setValue(System.currentTimeMillis().toString() +"="+ newString[0]+"="+newString[1]+"="+newString[2]+"="+newString[3])
         }
-
         getGreeting()
-
-
 
         val ev1 = Event(Color.RED, 1527688591000L, "Teste event day")
 
@@ -83,8 +80,6 @@ class CalendarActivity : Activity() {
                 {
                     Toast.makeText(context, "No Event", Toast.LENGTH_LONG).show()
                 }
-
-
 
             }
 
@@ -151,14 +146,12 @@ class CalendarActivity : Activity() {
                     val separete2 = item.split("=".toRegex())
 
 
-                    for (i in 1 until separete2.size step 4 ) {
+                    for (i in 1 until separete2.size-1 step 4 ) {
                         var d= separete2[i+3].replace("}","");
 
                        addEvent(separete2[i+1],separete2[i+2],d.toLong())
                         //System.out.println(separete2[i]+"-"+separete2[i+1]+"-"+separete2[i+2])
                     }
-
-
 
                 }
 
