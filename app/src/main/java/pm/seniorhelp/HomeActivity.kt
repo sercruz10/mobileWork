@@ -10,23 +10,21 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_home.*
-import okhttp3.*
-import pub.devrel.easypermissions.EasyPermissions
-import android.support.v7.app.AppCompatActivity
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.activity_home.*
+import nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2
+import okhttp3.*
+import pub.devrel.easypermissions.EasyPermissions
+import java.io.IOException
+import java.util.*
 
 
 private const val APP_ID = "22bf8738d265b443463933882f83cfbd"
@@ -74,14 +72,6 @@ class HomeActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val dt = Date()
-
-
-        val yourmilliseconds = System.currentTimeMillis()
-        val sdf = SimpleDateFormat("MMM dd,yyyy HH:mm")
-        val resultdate = Date(yourmilliseconds)
-
-
         getPermissions()
 
         imageWallet.setOnClickListener(){
@@ -99,7 +89,7 @@ class HomeActivity : Activity() {
         }
 
         imageHealth.setOnClickListener(){
-            startActivity(Intent(this, HealthActivity::class.java))
+            startActivity(Intent(this, ControlCenterv2::class.java))
         }
         imageMapa.setOnClickListener(){
 
@@ -152,11 +142,9 @@ class HomeActivity : Activity() {
 
     fun getGreetingNumber(str:String, btn: LinearLayout, txt:TextView){
         val myRefNumber1 = database.getReference(str)
-        val gson = Gson()
         myRefNumber1.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val separate1 = snapshot.value.toString().split(",".toRegex())
-                var y = 0
                 for (item in separate1) {
                     //println("TestBed: " + item)
                     val separete2 = item.split("=".toRegex())
@@ -176,7 +164,6 @@ class HomeActivity : Activity() {
         myRefNumber1.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val separate1 = snapshot.value.toString().split(",".toRegex())
-                var y = 0
                 for (item in separate1) {
                     //println("TestBed: " + item)
                     val separete2 = item.split("=".toRegex())

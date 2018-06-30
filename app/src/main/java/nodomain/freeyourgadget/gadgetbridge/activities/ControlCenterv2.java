@@ -114,7 +114,7 @@ public class ControlCenterv2 extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.controlcenter_navigation_drawer_open, R.string.controlcenter_navigation_drawer_close);
+               this, drawer, toolbar, R.string.controlcenter_navigation_drawer_open, R.string.controlcenter_navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -134,40 +134,6 @@ public class ControlCenterv2 extends AppCompatActivity
 
         deviceListView.setAdapter(this.mGBDeviceAdapter);
 
-        /* uncomment to enable fixed-swipe to reveal more actions
-
-        ItemTouchHelper swipeToDismissTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.LEFT , ItemTouchHelper.RIGHT) {
-            @Override
-            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-                if(dX>50)
-                    dX = 50;
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-
-            }
-
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                GB.toast(getBaseContext(), "onMove", Toast.LENGTH_LONG, GB.ERROR);
-
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                GB.toast(getBaseContext(), "onSwiped", Toast.LENGTH_LONG, GB.ERROR);
-
-            }
-
-            @Override
-            public void onChildDrawOver(Canvas c, RecyclerView recyclerView,
-                                        RecyclerView.ViewHolder viewHolder, float dX, float dY,
-                                        int actionState, boolean isCurrentlyActive) {
-            }
-        });
-
-        swipeToDismissTouchHelper.attachToRecyclerView(deviceListView);
-        */
 
         registerForContextMenu(deviceListView);
 
@@ -197,6 +163,7 @@ public class ControlCenterv2 extends AppCompatActivity
             cl.getLogDialog().show();
         }
 
+
         GBApplication.deviceService().start();
 
         if (GB.isBluetoothEnabled() && deviceList.isEmpty() && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -204,6 +171,7 @@ public class ControlCenterv2 extends AppCompatActivity
         } else {
             GBApplication.deviceService().requestDeviceInfo();
         }
+
     }
 
     @Override
