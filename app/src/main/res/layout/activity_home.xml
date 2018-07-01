@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="#ffffff"
     android:padding="10dp"
-    tools:context="HomeActivity">
+    tools:context=".pm.seniorhelp.HomeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

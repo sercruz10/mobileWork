@@ -6,7 +6,7 @@
     </style>
 
 
-    <style name="GadgetbridgeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="GadgetbridgeTheme">
         <item name="textColorPrimary">@color/primarytext_light</item>
         <item name="textColorSecondary">@color/secondarytext</item>
         <item name="textColorTertiary">@color/tertiarytext_light</item>
@@ -59,6 +59,6 @@
 
     <style name="GadgetbridgeTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="GadgetbridgeTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="GadgetbridgeTheme.PopupOverlay"  />
 
 </resources>

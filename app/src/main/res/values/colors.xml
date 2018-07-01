@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress AndroidDomInspection -->
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
@@ -30,6 +31,7 @@
     <color name="chart_deep_sleep_light" type="color">#0071b7</color>
     <color name="chart_deep_sleep_dark" type="color">#4c5aff</color>
 
+    <!--suppress AndroidDomInspection -->
     <color name="chart_light_sleep_light" type="color">#46acea</color>
     <color name="chart_light_sleep_dark" type="color">#b6bfff</color>
 
