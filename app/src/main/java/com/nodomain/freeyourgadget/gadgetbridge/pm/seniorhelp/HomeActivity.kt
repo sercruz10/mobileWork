@@ -19,10 +19,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
 import com.nodomain.freeyourgadget.gadgetbridge.R
 import com.nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2
+import com.nodomain.freeyourgadget.gadgetbridge.pm.objects.ConsumeApi
 import kotlinx.android.synthetic.main.activity_home.*
 import okhttp3.*
+import org.json.JSONObject
 import pub.devrel.easypermissions.EasyPermissions
 import java.io.IOException
 import java.util.*
@@ -33,8 +36,6 @@ class HomeActivity : Activity() {
     private val APP_ID = "22bf8738d265b443463933882f83cfbd"
     var contador = 0
 
-
-    var numbers : LinkedHashMap<String,String> = linkedMapOf()
     var coorLat = 9.99
     var coordLong = 9.99
 
@@ -70,6 +71,8 @@ class HomeActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        val yourmilliseconds = System.currentTimeMillis()
+
 
         getPermissions()
 
@@ -98,12 +101,6 @@ class HomeActivity : Activity() {
             if (mapIntent.resolveActivity(packageManager) != null) {
                 startActivity(mapIntent)
             }
-
-            /*val otherStrings = arrayOf(, )
-            val intent = Intent(this, Map::class.java)
-            intent.putExtra("ev", otherStrings)
-            setResult(RESULT_OK, intent)
-            startActivity(intent)*/
         }
 
         getGreetingNumber("/number1",call1,textPhone1)
@@ -207,15 +204,10 @@ class HomeActivity : Activity() {
         override fun onProviderDisabled(provider: String) {}
     }
 
-    fun execute(str:String){
+    fun execute(str: String) {
         contador = 1
         val url = str
-
         run(url)
-
-        Log.d("Url", url)
-
-
     }
 
     fun run(url: String) {
@@ -225,64 +217,34 @@ class HomeActivity : Activity() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {}
-            override fun onResponse(call: Call, response: Response)
-            {
+            override fun onResponse(call: Call, response: Response) {
                 val te = response.body()?.string().toString()
-
-                val split = te.split(":".toRegex())
-                /*
-                System.out.println("/n")
-                for (i in 1 until split.size step 1 ) {
-
-                    System.out.println("isto é "+i+"-"+split[i])
-                    //addEvent(separete2[i+1],separete2[i+2],d.toLong())
-                    //System.out.println(separete2[i]+"-"+separete2[i+1]+"-"+separete2[i+2])
-                }*/
-
-                var temp = split[11].replace(",\"pressure\"","")
-                var country = split[27].replace("\",\"sunrise\"","")
-                country = country.replace("\"","")
-                var city = split[31].replace("\",\"cod\"","")
-                city = city.replace("\"","")
-                var clouds = split[7].replace("\",\"icon\"","")
-                clouds = clouds.replace("\"","")
-                var icon = split[8].replace("\"}],\"base\"","")
-                icon = icon.replace("\"","")
-                icon = "a"+icon
-
-
-
-                val id = resources.getIdentifier(icon, "drawable", packageName)
-
+                val jsonObj = JSONObject(te)
+                val d = Gson().fromJson(te, ConsumeApi::class.java)
+                var temp = d.main.temp
+                var country = d.sys.country
+                var city = d.name
+                var clouds = d.weather[0].description
+                var icon = d.weather[0].icon
+                icon = "a" + icon
+                val id = resources.getIdentifier(icon, "drawable", getPackageName())
                 val tempo = temp.toDouble() - 273.15
                 val formatTempo = "%.2f".format(tempo)
-
-                val tempTxt =lblPersonalInfo.text
+                val tempTxt = lblPersonalInfo.text
                 var flag = false
-                while(!flag)
-                {
+                while (!flag) {
 
-                try {
-                    lblPersonalInfo.text = tempTxt.toString()+" "+city+" "+country+" "+formatTempo+" Cº"+" "+clouds
-                    imageIcon.setImageResource(id)
-                    flag = true
+                    try {
+                        lblPersonalInfo.setText(tempTxt.toString() + " " + city + " " + country + " " + formatTempo + " Cº" + " " + clouds)
+                        imageIcon.setImageResource(id)
+                        flag = true
+                    } catch (ex: Exception) {
+
+                    }
                 }
-                catch (ex: Exception )
-                {
-
-                }
-                }
-
-                //System.out.println(city+" "+country+" "+tempo)
-
             }
         })
     }
-
-
-
-
-
 }
 
 

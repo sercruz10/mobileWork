@@ -18,8 +18,8 @@ class Map : Activity() {
 
         val newString = extras.getStringArray("ev")
 
-       val ver = web
-        web.settings.javaScriptEnabled = true
+        val ver = web
+        web.getSettings().setJavaScriptEnabled(true)
 
         val string = ddToDms(newString[0].toDouble(),newString[1].toDouble())
 
@@ -33,11 +33,11 @@ class Map : Activity() {
 
 
         val gmmIntentUri = Uri.parse("geo:"+newString[0]+","+newString[1])
-val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-mapIntent.setPackage("com.google.android.apps.maps")
-        if (mapIntent.resolveActivity(packageManager) != null) {
-    startActivity(mapIntent)
-}
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent)
+        }
 
 
 
@@ -113,6 +113,5 @@ mapIntent.setPackage("com.google.android.apps.maps")
 
         return result
     }
-
 
 }

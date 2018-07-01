@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_edit_wh.*
 class EditWH : Activity() {
 
     val database = FirebaseDatabase.getInstance()
-    val myRef = database.getReference("/number3")
+    val myRef = database.getReference("/number2")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +24,6 @@ class EditWH : Activity() {
             val intent = Intent(baseContext, HomeActivity::class.java)
 
             startActivity(intent)
-
-
         }
     }
 }

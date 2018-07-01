@@ -74,7 +74,7 @@ class CreateEventActivity : Activity() {
             val name = nameEvent.text
             val color = color_spinner.selectedItem
             val dataEvent = lblDate.text
-            val time = time_picker.currentHour.toString() +":" +time_picker.currentMinute.toString()
+            val time = time_picker.getCurrentHour().toString() +":" +time_picker.getCurrentMinute().toString()
             val timeMills = formatter.parse(dataEvent.toString()+", "+time)
             val oldMillis = timeMills.time
             val img = imageView.drawable
@@ -137,15 +137,15 @@ class CreateEventActivity : Activity() {
     }
 
     private fun getPermissions() {
-    /*    if (!EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            EasyPermissions.requestPermissions(this, "", 0,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)
-        }
-        if (!EasyPermissions.hasPermissions(this, WRITE_EXTERNAL_STORAGE)) {
-            EasyPermissions.requestPermissions(this, "", 0,
-                    WRITE_EXTERNAL_STORAGE)
-        }
-*/
+        /*    if (!EasyPermissions.hasPermissions(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                EasyPermissions.requestPermissions(this, "", 0,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+            if (!EasyPermissions.hasPermissions(this, WRITE_EXTERNAL_STORAGE)) {
+                EasyPermissions.requestPermissions(this, "", 0,
+                        WRITE_EXTERNAL_STORAGE)
+            }
+    */
     }
 
 
@@ -153,25 +153,20 @@ class CreateEventActivity : Activity() {
 
 
 
-      val c = Calendar.getInstance()
-      val year = c.get(Calendar.YEAR)
-      val month = c.get(Calendar.MONTH)
-      val day = c.get(Calendar.DAY_OF_MONTH)
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
 
 
-      val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
 
-          val m = monthOfYear.toInt()+1
-          lblDate.text = "" + dayOfMonth + "." + m + "." + year
-      }, year, month, day)
-      dpd.show()
+            val m = monthOfYear.toInt()+1;
+            lblDate.setText("" + dayOfMonth + "." + m + "." + year)
+        }, year, month, day)
+        dpd.show()
 
 
     }
-
-
-
-
-
 }
 

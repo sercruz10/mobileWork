@@ -47,29 +47,23 @@ class SettingsActivity : Activity() {
         }
 
         getGreetingNumber("/number1",btnConfigSOS)
-        getGreetingNumber("/number2",btnConfigBest)
-        getGreetingNumber("number3",btnConfigWH)
+        getGreetingNumber("/number2",btnConfigWH)
+        getGreetingNumber("/number3",btnConfigBest)
+
 
         btnSubmitPersonalInfo.setOnClickListener {
             val name = txtNameInfo.text
             val number = txtPhonePersonal.text
             val dataEvent = lblDateBirth.text
             val adress = txtAdressPersonal.text
-
-
             myRef.setValue(System.currentTimeMillis().toString() +"="+ name+"="+number+"="+dataEvent+"="+adress)
             val intent = Intent(baseContext, HomeActivity::class.java)
-
             startActivity(intent)
-
 
         }
     }
 
     fun getTime(){
-
-
-
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
@@ -78,8 +72,8 @@ class SettingsActivity : Activity() {
 
         val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
 
-            val m = monthOfYear.toInt()+1
-            lblDateBirth.text = "" + dayOfMonth + "." + m + "." + year
+            val m = monthOfYear.toInt()+1;
+            lblDateBirth.setText("" + dayOfMonth + "." + m + "." + year)
         }, year, month, day)
         dpd.show()
 
@@ -108,5 +102,4 @@ class SettingsActivity : Activity() {
             override fun onCancelled(error: DatabaseError) {}
         })
     }
-
 }

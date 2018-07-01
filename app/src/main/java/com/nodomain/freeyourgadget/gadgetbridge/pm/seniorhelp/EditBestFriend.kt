@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_edit_best_friend.*
 class EditBestFriend : Activity() {
 
     val database = FirebaseDatabase.getInstance()
-    val myRef = database.getReference("/number1")
+    val myRef = database.getReference("/number3")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

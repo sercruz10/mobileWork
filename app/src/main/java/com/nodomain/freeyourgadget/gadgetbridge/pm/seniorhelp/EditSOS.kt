@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_edit_sos.*
 
 class EditSOS : Activity() {
     val database = FirebaseDatabase.getInstance()
-    val myRef = database.getReference("/number2")
+    val myRef = database.getReference("/number1")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
