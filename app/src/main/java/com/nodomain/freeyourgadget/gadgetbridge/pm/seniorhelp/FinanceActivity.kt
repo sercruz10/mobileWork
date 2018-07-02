@@ -18,18 +18,20 @@ import java.util.*
 
 class FinanceActivity  : Activity() {
 //TODO alterar os dados da barra, saldo etc
-    val dt = Date()
+
+    var rightNow = Calendar.getInstance();
+
     val database = FirebaseDatabase.getInstance()
     var isDespesa = false
 
-    var previousMonth = dt.month - 1
-    var currentMonth = dt.month
-    var nextMonth = dt.month +1
+    var previousMonth = rightNow.get(Calendar.MONTH)
+    var currentMonth = rightNow.get(Calendar.MONTH)+1
+    var nextMonth = rightNow.get(Calendar.MONTH) + 2
 
     var rendimento:Double = 0.0
     var despesa:Double = 0.0
 
-    var monthName = arrayOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+    var monthName = arrayOf("Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,6 +81,7 @@ class FinanceActivity  : Activity() {
 
         addDespesa.setOnClickListener {
             options.visibility = View.VISIBLE
+            value.isFocusable = true
             isDespesa = true
 
             val myRef = database.getReference("/config/finance/despesas/")
@@ -125,40 +128,46 @@ class FinanceActivity  : Activity() {
     fun calculaFinancas(valor : String)
     {
         if ("despesa".equals(valor)) {
+            val myRef = database.getReference("/app/finance/despesas/" +rightNow.get(Calendar.YEAR)  + "/" + currentMonth+"/")
+            val valor = value.text.toString().replace("€ ","")
 
-            //val myRef = database.getReference("/app/finance/despesas/" + dt.year + "/" + dt.month+"/value")
-            //myRef.setValue(value.text.toString().replace("€ ","").toDouble())
-            val myRef = database.getReference("/app/finance/despesas/" + dt.year + "/" + currentMonth+"/")
-            myRef.push().setValue(value.text.toString().replace("€ ","").toDouble())
-
-            myRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    despesa = 0.0
-                    snapshot.children.forEach { item : DataSnapshot ->
-                        despesa = despesa.plus(item.value.toString().toDouble())
+            if (valor.isNotEmpty()) {
+                myRef.push().setValue(valor.toDouble())
+            }
+                myRef.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        despesa = 0.0
+                        snapshot.children.forEach { item: DataSnapshot ->
+                            despesa = despesa.plus(item.value.toString().toDouble())
+                        }
+                        calculaDados(0)
                     }
-                    calculaDados(0)
-                }
 
-                override fun onCancelled(error: DatabaseError) {}
-            })
+                    override fun onCancelled(error: DatabaseError) {}
+                })
+
 
         }
         else if ("rendimento".equals(valor)){
-            val myRef = database.getReference("/app/finance/rendimentos/" + dt.year + "/" + currentMonth+"/")
-            myRef.push().setValue(value.text.toString().replace("€ ","").toDouble())
+            val myRef = database.getReference("/app/finance/rendimentos/" + rightNow.get(Calendar.YEAR) + "/" + currentMonth+"/")
+            val valor = value.text.toString().replace("€ ","")
 
-            myRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    rendimento = 0.0
-                    snapshot.children.forEach { item : DataSnapshot ->
-                        rendimento = rendimento.plus(item.value.toString().toDouble())
+            if (valor.isNotEmpty()) {
+                myRef.push().setValue(valor.toDouble())
+            }
+
+                myRef.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        rendimento = 0.0
+                        snapshot.children.forEach { item: DataSnapshot ->
+                            rendimento = rendimento.plus(item.value.toString().toDouble())
+                        }
+                        calculaDados(0)
                     }
-                    calculaDados(0)
-                }
 
-                override fun onCancelled(error: DatabaseError) {}
-            })
+                    override fun onCancelled(error: DatabaseError) {}
+                })
+
 
         }
     }
@@ -166,8 +175,6 @@ class FinanceActivity  : Activity() {
 
      fun calculaDados(valor : Int)
     {
-        value.setText("€ 0")
-
         if (valor>0) {
             if (!nextMonth.equals(13)) {
                 //TODO passar para extenso
@@ -219,10 +226,20 @@ class FinanceActivity  : Activity() {
         progressBar.progressTintList = ColorStateList.valueOf(Color.GREEN)
         progressBar.progressDrawable.bounds = bounds
 
-        if (despesa>=rendimento)
-            progressBar.progress = 0
-        else
+        if (despesa==rendimento) {
+            progressBar.progress =0
+
+        }
+        else     if (despesa>rendimento) {
+            progressBar.progress = 100
+
+            progressBar.progressTintList = ColorStateList.valueOf(Color.RED)
+        }
+            else
+        {
             progressBar.progress = 100-(despesa/rendimento*100).toInt()
+
+        }
     }
 
 
